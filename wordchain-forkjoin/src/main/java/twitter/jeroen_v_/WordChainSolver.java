@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Set;
  * Time: 9:17 PM
  */
 public final class WordChainSolver {
-    private final Set<String> wordChain = new HashSet<String>();
+    private final Set<String> wordChain = new LinkedHashSet<String>();
     private final String firstWord, lastWord;
     private DictionaryReader dictionaryReader;
     private static final Logger LOGGER = LoggerFactory.getLogger(WordChainSolver.class);
@@ -42,8 +43,9 @@ public final class WordChainSolver {
         LOGGER.debug("next word in dictionary: " + nextInDictionary);
         if (onlyOneLetterDifferenceBetween(currentWord, nextInDictionary)) {
             wordChain.add(nextInDictionary);
+            return findRestOfChain(nextInDictionary);
         }
-        return findRestOfChain(nextInDictionary);
+        return findRestOfChain(currentWord);
     }
 
     private boolean onlyOneLetterDifferenceBetween(String firstWord, String secondWord) {

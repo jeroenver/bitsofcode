@@ -1,8 +1,7 @@
 package twitter.jeroen_v_;
 
-import com.sun.deploy.util.OrderedHashSet;
-
-import java.util.*;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * User: jeroen
@@ -10,8 +9,11 @@ import java.util.*;
  * Time: 9:35 PM
  */
 public final class LimitedDictionaryReader implements DictionaryReader {
-    private static Set<String> dictionary = new LinkedHashSet<String>(Arrays.asList("cat", "cot", "cog", "dog"));
-    private Iterator dictionaryIterator = dictionary.iterator();
+    private Iterator dictionaryIterator;
+
+    public LimitedDictionaryReader(Set<String> dictionary) {
+        dictionaryIterator = dictionary.iterator();
+    }
 
     @Override
     public String readNextWordFromDictionary() {
