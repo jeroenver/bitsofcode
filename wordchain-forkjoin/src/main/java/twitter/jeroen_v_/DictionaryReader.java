@@ -9,4 +9,8 @@ public interface DictionaryReader {
     String readNextWordFromDictionary();
 
     boolean hasMoreWords();
+
+    int getPointer();
+
+    void setPointer(int pointer);
 }

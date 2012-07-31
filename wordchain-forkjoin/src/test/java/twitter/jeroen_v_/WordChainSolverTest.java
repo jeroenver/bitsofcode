@@ -18,8 +18,8 @@ public class WordChainSolverTest {
     @Test
     public void testSolveSimpleChain() throws Exception {
         Set<String> dictionary = new LinkedHashSet<String>(Arrays.asList("cat", "cot", "can", "cog", "dog"));
-        WordChainSolver wordChainSolver = new WordChainSolver("cat", "dog", new LimitedDictionaryReader(dictionary));
-        Set<String> wordChain = wordChainSolver.findShortestChain();
+        DictionaryReaderFactory dictionaryReaderFactory = new LimitedDictionaryReaderFactory(dictionary);
+        Set<String> wordChain = WordChainSolver.findShortestChain("cat", "dog", dictionaryReaderFactory);
         Set<String> expectedChain = new LinkedHashSet<String>(Arrays.asList("cat", "cot", "cog", "dog"));
         assertThat(wordChain).isEqualTo(expectedChain);
     }
@@ -27,16 +27,16 @@ public class WordChainSolverTest {
     @Test
     public void testNoChainFound() throws Exception {
         Set<String> dictionary = new LinkedHashSet<String>(Arrays.asList("cat", "cog", "dog"));
-        WordChainSolver wordChainSolver = new WordChainSolver("cat", "dog", new LimitedDictionaryReader(dictionary));
-        Set<String> wordChain = wordChainSolver.findShortestChain();
+        DictionaryReaderFactory dictionaryReaderFactory = new LimitedDictionaryReaderFactory(dictionary);
+        Set<String> wordChain = WordChainSolver.findShortestChain("cat", "dog", dictionaryReaderFactory);
         assertThat(wordChain).isEmpty();
     }
 
     @Test
     public void testOnly2words() throws Exception {
         Set<String> dictionary = new LinkedHashSet<String>(Arrays.asList("cat", "cot", "can", "cog", "dog"));
-        WordChainSolver wordChainSolver = new WordChainSolver("cat", "cot", new LimitedDictionaryReader(dictionary));
-        Set<String> wordChain = wordChainSolver.findShortestChain();
+        DictionaryReaderFactory dictionaryReaderFactory = new LimitedDictionaryReaderFactory(dictionary);
+        Set<String> wordChain = WordChainSolver.findShortestChain("cat", "cot", dictionaryReaderFactory);
         Set<String> expectedChain = new LinkedHashSet<String>(Arrays.asList("cat", "cot"));
         assertThat(wordChain).isEqualTo(expectedChain);
     }
@@ -44,8 +44,8 @@ public class WordChainSolverTest {
     @Test
     public void testAlternatePath() throws Exception {
         Set<String> dictionary = new LinkedHashSet<String>(Arrays.asList("cat", "cot", "can", "cog", "pan", "dog"));
-        WordChainSolver wordChainSolver = new WordChainSolver("cat", "pan", new LimitedDictionaryReader(dictionary));
-        Set<String> wordChain = wordChainSolver.findShortestChain();
+        DictionaryReaderFactory dictionaryReaderFactory = new LimitedDictionaryReaderFactory(dictionary);
+        Set<String> wordChain = WordChainSolver.findShortestChain("cat", "pan", dictionaryReaderFactory);
         Set<String> expectedChain = new LinkedHashSet<String>(Arrays.asList("cat", "can", "pan"));
         assertThat(wordChain).isEqualTo(expectedChain);
     }
